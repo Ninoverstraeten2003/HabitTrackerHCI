@@ -193,6 +193,7 @@ function RadialStudy() {
   const [taskIndex, setTaskIndex] = useState(0)
   const [done, setDone] = useState(false)
   const [showWoz, setShowWoz] = useState(false)
+  const [taskResults, setTaskResults] = useState<{ task: string; time: number; timeout: boolean }[]>([])
 
   // App state
   const [categories, setCategories] = useState<HabitCategory[]>(INITIAL_CATEGORIES)
@@ -212,8 +213,8 @@ function RadialStudy() {
   const [editReminder, setEditReminder] = useState('')
   const [formResult, setFormResult] = useState<string | null>(null)
 
-  const handleNext = useCallback((timedOut?: boolean) => {
-    if (timedOut) {/* log */}
+  const handleNext = useCallback((elapsedTime: number, timedOut: boolean) => {
+    setTaskResults((prev) => [...prev, { task: tasks[taskIndex].id, time: elapsedTime, timeout: timedOut }])
     if (taskIndex < tasks.length - 1) {
       setTaskIndex((i) => i + 1)
       setRadial({ level: 'root', selectedCategoryId: null, selectedHabitId: null, subMenu: null })
@@ -221,7 +222,7 @@ function RadialStudy() {
     } else {
       setDone(true)
     }
-  }, [taskIndex, tasks.length])
+  }, [taskIndex, tasks])
 
   const selectedCategory = categories.find((c) => c.id === radial.selectedCategoryId) ?? null
   const selectedHabit = selectedCategory?.habits.find((h) => h.id === radial.selectedHabitId) ?? null
@@ -360,6 +361,7 @@ function RadialStudy() {
         participantId={pid}
         taskSetLabel={taskSet}
         conditionIndex={conditionIndex}
+        results={taskResults}
       />
     )
   }

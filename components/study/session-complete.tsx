@@ -7,6 +7,7 @@ interface SessionCompleteProps {
   participantId: number
   taskSetLabel: string
   conditionIndex: number
+  results?: { task: string; time: number; timeout: boolean }[]
 }
 
 const CONDITION_COLOR = { accordion: 'bg-teal-500', radial: 'bg-orange-500' }
@@ -17,6 +18,7 @@ export function SessionComplete({
   participantId,
   taskSetLabel,
   conditionIndex,
+  results = [],
 }: SessionCompleteProps) {
   const router = useRouter()
   const isFirstCondition = conditionIndex === 0
@@ -72,7 +74,7 @@ export function SessionComplete({
             </li>
             <li className="flex gap-2">
               <span className="text-primary font-bold shrink-0">2.</span>
-              Record task times &amp; error counts from your observation notes.
+              Record task error counts from your observation notes. (Times are logged below)
             </li>
             {isFirstCondition && (
               <li className="flex gap-2">
@@ -82,6 +84,31 @@ export function SessionComplete({
             )}
           </ul>
         </div>
+
+        {/* Results Table */}
+        {results.length > 0 && (
+          <div className="w-full bg-card border border-border rounded-xl overflow-hidden">
+            <div className="bg-muted px-4 py-2 border-b border-border">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground text-left">
+                Task Completion Times
+              </p>
+            </div>
+            <div className="divide-y divide-border">
+              {results.map((res, i) => (
+                <div key={i} className="flex items-center justify-between px-4 py-3 text-sm">
+                  <span className="font-medium text-foreground">{res.task}</span>
+                  <div className="flex items-center gap-3">
+                    {res.timeout ? (
+                      <span className="text-xs font-semibold text-destructive bg-destructive/10 px-2 py-0.5 rounded">Timeout</span>
+                    ) : (
+                      <span className="font-mono text-muted-foreground">{res.time}s</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="flex flex-col gap-3 w-full">
           {isFirstCondition ? (

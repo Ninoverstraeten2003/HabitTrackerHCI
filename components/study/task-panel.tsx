@@ -7,7 +7,7 @@ import { TASK_TIMEOUT_SECONDS } from '@/lib/study-data'
 interface TaskPanelProps {
   tasks: Task[]
   currentIndex: number
-  onNext: (timedOut?: boolean) => void
+  onNext: (elapsedTime: number, timedOut: boolean) => void
   condition: 'accordion' | 'radial'
   participantId: number
 }
@@ -152,7 +152,7 @@ export function TaskPanel({ tasks, currentIndex, onNext, condition, participantI
 
           {/* Next task */}
           <button
-            onClick={() => onNext(timedOut)}
+            onClick={() => onNext(elapsed, timedOut)}
             className={`w-full text-sm font-semibold py-2.5 rounded-xl ring-2 ${CONDITION_RING[condition]} ${CONDITION_COLOR[condition]} text-white hover:opacity-90 active:scale-95 transition-all`}
           >
             {timedOut

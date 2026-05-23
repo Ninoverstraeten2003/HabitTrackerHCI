@@ -17,6 +17,7 @@ function AccordionStudy() {
   const [taskIndex, setTaskIndex] = useState(0)
   const [done, setDone] = useState(false)
   const [showWoz, setShowWoz] = useState(false)
+  const [taskResults, setTaskResults] = useState<{ task: string; time: number; timeout: boolean }[]>([])
 
   // App state
   const [categories, setCategories] = useState<HabitCategory[]>(INITIAL_CATEGORIES)
@@ -33,10 +34,8 @@ function AccordionStudy() {
   // Edit reminder state
   const [editReminder, setEditReminder] = useState('')
 
-  const handleNext = useCallback((timedOut?: boolean) => {
-    if (timedOut) {
-      // just advance
-    }
+  const handleNext = useCallback((elapsedTime: number, timedOut: boolean) => {
+    setTaskResults((prev) => [...prev, { task: tasks[taskIndex].id, time: elapsedTime, timeout: timedOut }])
     if (taskIndex < tasks.length - 1) {
       setTaskIndex((i) => i + 1)
       setSelectedHabit(null)
@@ -44,7 +43,7 @@ function AccordionStudy() {
     } else {
       setDone(true)
     }
-  }, [taskIndex, tasks.length])
+  }, [taskIndex, tasks])
 
   function toggleCategory(id: string) {
     setExpandedCat((prev) => (prev === id ? null : id))
@@ -128,6 +127,7 @@ function AccordionStudy() {
         participantId={pid}
         taskSetLabel={taskSet}
         conditionIndex={conditionIndex}
+        results={taskResults}
       />
     )
   }
