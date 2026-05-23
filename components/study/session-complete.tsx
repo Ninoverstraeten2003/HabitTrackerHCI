@@ -49,7 +49,7 @@ export function SessionComplete({
           </p>
         </div>
 
-        {/* SUS reminder */}
+        {/* Questionnaire reminder */}
         <div className="w-full bg-card border border-border rounded-xl p-5 text-left">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2 font-medium">
             Facilitator — Do Now
@@ -57,8 +57,18 @@ export function SessionComplete({
           <ul className="text-sm text-foreground space-y-2 leading-relaxed">
             <li className="flex gap-2">
               <span className="text-primary font-bold shrink-0">1.</span>
-              Administer the SUS questionnaire for the{' '}
-              <strong>{CONDITION_LABEL[condition]}</strong> condition.
+              <span>
+                Administer the{' '}
+                <a
+                  href="https://forms.gle/jKPpcyWEayeToAtB9"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary underline hover:text-primary/80"
+                >
+                  Custom Post-Condition Questionnaire
+                </a>{' '}
+                for the <strong>{CONDITION_LABEL[condition]}</strong> condition.
+              </span>
             </li>
             <li className="flex gap-2">
               <span className="text-primary font-bold shrink-0">2.</span>
