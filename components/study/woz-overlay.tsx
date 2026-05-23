@@ -22,20 +22,6 @@ export function WozOverlay({ visible, onDismiss, action = 'Archive All' }: WozOv
     }
   }, [visible, onDismiss])
 
-  // Listen for spacebar (WoZ trigger) — only when focus is NOT inside a text field
-  useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      if (e.code !== 'Space' || visible) return
-      const tag = (e.target as HTMLElement)?.tagName
-      const isEditable = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT'
-        || (e.target as HTMLElement)?.isContentEditable
-      if (isEditable) return
-      e.preventDefault()
-      setAnimating(true)
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
-  }, [visible])
 
   if (!visible && !animating) return null
 

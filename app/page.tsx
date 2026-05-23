@@ -156,7 +156,7 @@ export default function FacilitatorDashboard() {
             </li>
             <li className="flex gap-2">
               <span className="text-orange-600 font-semibold shrink-0">WoZ T5</span>
-              <span>Observer presses <kbd className="text-xs bg-muted border border-border rounded px-1 py-0.5 font-mono">Space</kbd> on master device when participant clicks the correct bulk-action button.</span>
+              <span>The &quot;Success&quot; overlay will trigger automatically when the participant clicks the correct bulk-action button.</span>
             </li>
           </ul>
         </section>
