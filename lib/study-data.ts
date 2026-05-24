@@ -17,7 +17,7 @@ export const TASK_SET_A: Task[] = [
   {
     id: 'A-T2',
     type: 'Edit Habit',
-    instruction: "Change the reminder time for the habit 'Meditate' from 8:00 AM to 9:00 PM.",
+    instruction: "Change the reminder time for the habit 'Meditate' from 08:00 (8:00 AM) to 21:00 (9:00 PM).",
   },
   {
     id: 'A-T3',
@@ -46,7 +46,7 @@ export const TASK_SET_B: Task[] = [
   {
     id: 'B-T2',
     type: 'Edit Habit',
-    instruction: "Change the reminder time for the habit 'Stretch' from 7:00 AM to 10:00 PM.",
+    instruction: "Change the reminder time for the habit 'Stretch' from 07:00 (7:00 AM) to 22:00 (10:00 PM).",
   },
   {
     id: 'B-T3',
